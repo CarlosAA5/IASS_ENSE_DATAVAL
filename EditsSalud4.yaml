@@ -1,0 +1,585 @@
+rules:
+- 
+  expr: '!is.na(PROXY_0)'
+  name: Req1
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(PROXY_2b)'
+  name: Req2
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(PROXY_3b)'
+  name: Req3
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(PROXY_4)'
+  name: Req4
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(CCAA)'
+  name: Req5
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(IDENTHOGAR)'
+  name: Req6
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(A7_2a)'
+  name: Req7
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(SEXOa)'
+  name: Req8
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(EDADa)'
+  name: Req9
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: '!is.na(ACTIVa)'
+  name: Req10
+  label: Existencia de identificacion
+  description: Si el PROXY está desinformado, las variables de identificacion no pueden estar vacias
+-
+  expr: (is.na(E1_1) | is.na(E2_1c)) | ((E1_1==8)&(E2_1c==1)) | (E1_1!=8)
+  name: Nacionalidad1
+  label: Nacionalidad
+  description: Coherencia nacionalidad 1
+-
+  expr: (is.na(E1_1) | is.na(E2_1d)) | ((E1_1==9)&(E2_1d==1)) | (E1_1!=9)
+  name: Nacionalidad2
+  label: Nacionalidad2
+  description: Coherencia nacionalidad 2
+- 
+  expr: (is.na(EDADa) | is.na(E3)) | (EDADa >= E3) | (EDADa<E3)
+  name: Años_Residencia
+  label: Años de residencia coherentes
+  description: Los años de residencia no pueden ser mayores a la edad
+-
+  expr: (is.na(F7) & is.na(F12)) | (!is.na(F7 == F12))
+  name: Duplicada1
+  label: Misma pregunta
+  description: Las respuestas a ambas preguntas tiene que coincidir pues son la misma
+-
+  expr: (is.na(F10) & is.na(F20)) | (!is.na(F10 == F20))
+  name: Duplicada2
+  label: Misma pregunta
+  description:  Las respuestas a ambas preguntas tiene que coincidir pues son la misma
+-
+  expr: (is.na(F10) | is.na(F15))| ((F10==3) & (F15==1|F15==8|F15==9)) | (F10!=3)
+  name: Empresario1
+  label: Coherencia empresario empleados
+  description: Si es empresario sin empleados no tiene que tener algun empleado a su cargo
+-
+  expr: (is.na(F10) | is.na(F15))|((F10==2)&(F15==2|F15==3|F15==4|F15==5|F15==8|F15==9)) | (F10!=2)
+  name: Empresario2
+  label: Coherencia empresario empleados
+  description: Si es empleador tiene que tener algun empleado a su cargo
+-
+  expr: (is.na(F10) | is.na(F13)) | ((F10==1) & (F13==1|F13==2|F13==3|F13==4)) | (F10!=1)
+  name: Asalariado1
+  label: Tipo de asalariado
+  description: Si es asalariado tiene que clasificarse en algun tipo de asalariado
+-
+  expr: (is.na(F10) | is.na(F13))| ((F10==4)&(F13==7)) | (F10!=4)| (F13!=7)
+  name: Asalariado2
+  label: Coherencia Ayudas Familares
+  description:  Las respuestas si recibe ayudas familiares han de coincidir
+-
+  expr: (is.na(F10) | is.na(F13)) | ((F10==2 | F10==3)&(F13==5 | F13==6)) | (F10!=2 & F10!=3) |  (F13!=5 | F13!=6)
+  name: Empresario3
+  label: Coherencia empresarios
+  description: Las respuestas si son empresarios han de coincidir
+-
+  expr: (is.na(F13) | is.na(F14a)) | ((F13==1 | F13==2) & (F14a==5)) | (F13!=1 & F13!=2)
+  name: DuracionContr1
+  label: Coherencia Puesto Duracion
+  description: Si tiene un puesto de duracion indefinida, coherencia
+-
+  expr: (is.na(F14a) | is.na(F13)) | ((F13==3|F13==4)&(F14a<=4)) | (F13!=3 & F13!=4)
+  name: DuracionContr2
+  label: Coherencia Puesto Duracion
+  description: Si tiene un puesto de duracion temporal, coherencia
+-
+  expr: (is.na(ACTIVa) | is.na(G22) | is.na(G23)) | ((ACTIVa==5) & (G22==1) & (G23!=3)) | (ACTIVa!=5) | (G22!=1)
+  name: EnfermedadCronica1
+  label: Coherencia Inactividad
+  description:  Si es una persona inactiva tiene que tener coherencia con sus enfermedades
+-
+  expr: (is.na(G25a_1) | is.na(G25c_1)) | ((G25a_1==1)&(G25c_1==1)) | (G25a_1!=1) 
+  name: EnfermedadCronica3
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_2) | is.na(G25c_2)) | ((G25a_2==1)&(G25c_2==1)) | (G25a_2!=1) 
+  name: EnfermedadCronica4
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_3) | is.na(G25c_3)) | ((G25a_3==1)&(G25c_3==1)) | (G25a_3!=1) 
+  name: EnfermedadCronica5
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_4) | is.na(G25c_4)) | ((G25a_4==1)&(G25c_4==1)) | (G25a_4!=1)
+  name: EnfermedadCronica6
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_5) | is.na(G25c_5)) | ((G25a_5==1)&(G25c_5==1)) | (G25a_5!=1)
+  name: EnfermedadCronica7
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_6) | is.na(G25c_6)) | ((G25a_6==1)&(G25c_6==1)) | (G25a_6!=1)
+  name: EnfermedadCronica8
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_7) | is.na(G25c_7)) | ((G25a_7==1)&(G25c_7==1)) | (G25a_7!=1)
+  name: EnfermedadCronica9
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_8) | is.na(G25c_8)) | ((G25a_8==1)&(G25c_8==1)) | (G25a_8!=1)
+  name: EnfermedadCronica10
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_9) | is.na(G25c_9)) | ((G25a_9==1)&(G25c_9==1)) | (G25a_9!=1)
+  name: EnfermedadCronica11
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_10) | is.na(G25c_10)) | ((G25a_10==1)&(G25c_10==1)) | (G25a_10!=1)
+  name: EnfermedadCronica12
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_11) | is.na(G25c_11)) | ((G25a_11==1)&(G25c_11==1)) | (G25a_11!=1)
+  name: EnfermedadCronica13
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_12) | is.na(G25c_12)) | ((G25a_12==1)&(G25c_12==1)) | (G25a_12!=1)
+  name: EnfermedadCronica14
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_13) | is.na(G25c_13)) | ((G25a_13==1)&(G25c_13==1)) | (G25a_13!=1)
+  name: EnfermedadCronica15
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_14) | is.na(G25c_14)) | ((G25a_14==1)&(G25c_14==1)) | (G25a_14!=1)
+  name: EnfermedadCronica16
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_15) | is.na(G25c_15)) | ((G25a_15==1)&(G25c_15==1)) | (G25a_15!=1)
+  name: EnfermedadCronica17
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_16) | is.na(G25c_16)) | ((G25a_16==1)&(G25c_16==1)) | (G25a_16!=1)
+  name: EnfermedadCronica18
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_17) | is.na(G25c_17)) | ((G25a_17==1)&(G25c_17==1)) | (G25a_17!=1)
+  name: EnfermedadCronica19
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_18) | is.na(G25c_18)) | ((G25a_18==1)&(G25c_18==1)) | (G25a_18!=1)
+  name: EnfermedadCronica20
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_19) | is.na(G25c_19)) | ((G25a_19==1)&(G25c_19==1)) | (G25a_19!=1)
+  name: EnfermedadCronica21
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_20) | is.na(G25c_20)) | ((G25a_20==1)&(G25c_20==1)) | (G25a_20!=1)
+  name: EnfermedadCronica22
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_21) | is.na(G25c_21)) | ((G25a_21==1)&(G25c_21==1)) | (G25a_21!=1)
+  name: EnfermedadCronica23
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_22) | is.na(G25c_22)) | ((G25a_22==1)&(G25c_22==1)) | (G25a_22!=1)
+  name: EnfermedadCronica24
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_23) | is.na(G25c_23)) | ((G25a_23==1)&(G25c_23==1)) | (G25a_23!=1)
+  name: EnfermedadCronica25
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_24) | is.na(G25c_24)) | ((G25a_24==1)&(G25c_24==1)) | (G25a_24!=1)
+  name: EnfermedadCronica26
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_25) | is.na(G25c_25)) | ((G25a_25==1)&(G25c_25==1)) | (G25a_25!=1)
+  name: EnfermedadCronica27
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_26) | is.na(G25c_26)) | ((G25a_26==1)&(G25c_26==1)) | (G25a_26!=1)
+  name: EnfermedadCronica28
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_27) | is.na(G25c_27)) | ((G25a_27==1)&(G25c_27==1)) | (G25a_27!=1)
+  name: EnfermedadCronica29
+  label: Coherencia enfermedad cronica
+  description:  Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_28) | is.na(G25c_28)) | ((G25a_28==1)&(G25c_28==1)) | (G25a_28!=1)
+  name: EnfermedadCronica30
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_29) | is.na(G25c_29)) | ((G25a_29==1)&(G25c_29==1)) | (G25a_29!=1)
+  name: EnfermedadCronica31
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_30) | is.na(G25c_30)) | ((G25a_30==1)&(G25c_30==1)) | (G25a_30!=1)
+  name: EnfermedadCronica32
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_31) | is.na(G25c_31)) | ((G25a_31==1)&(G25c_31==1)) | (G25a_31!=1)
+  name: EnfermedadCronica33
+  label: Coherencia enfermedad cronica
+  description:  Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_32) | is.na(G25c_32)) | ((G25a_32==1)&(G25c_32==1)) | (G25a_32!=1)
+  name: EnfermedadCronica34
+  label: Coherencia enfermedad cronica
+  description: Si tiene una enfermedad se tiene que contrastar con un medico
+-
+  expr: (is.na(G25a_30) | is.na(G25b_30) | is.na(G25c_30) | is.na(SEXOa)) | ((SEXOa==2) & (G25a_30!=1)&(G25b_30!=1)&(G25c_30!=1)) | (SEXOa!=2) | (G25a_30==1) | (G25b_30==1)
+  name: Prostata
+  label: Solo hombres
+  description: Si es mujer no tiene prostata
+-
+  expr: (is.na(G25a_31) | is.na(G25b_31) | is.na(G25c_31) | is.na(SEXOa)) | ((SEXOa==1) & (G25a_31!=1)&(G25b_31!=1)&(G25c_31!=1)) | (SEXOa!=1) | (G25a_31==1) | (G25b_31==1)
+  name: Menopausia
+  label: Solo mujeres
+  description: Si es hombre no puede tener la menopausia
+-
+  expr: (is.na(K32) | is.na(K33)) | ((K32==3) & (K33=4)) | (K32 != 3)
+  name: Vision
+  label: Dificultades vision
+  description: Si usa gafas o lentillas tiene que tener dificultad para ver
+-
+  expr: (is.na(K34) | is.na(K35)) | ((K34==3) & (K35=4)) | (K34 != 3)
+  name: Audicion
+  label: Dificultades audicion
+  description: Si usa audifono tiene que tener dificultad para oir
+-
+  expr: (is.na(G23) | is.na(L39_1) | is.na(L39_2)| is.na(L39_3)| is.na(L39_4)| is.na(L39_5)) | ((G23==1)&(L39_1!=1)&(L39_2!=1)&(L39_3!=1)&(L39_4!=1)&(L39_5!=1)) | (G23!=1)
+  name: Dependiente1
+  label: Dificultades tareas cotidianas
+  description:  Si tiene dificultades graves, alguna de las actividades de la vida cotitdiana no las puede realizar
+-
+  expr: (is.na(L41) & is.na(L43)) | (!is.na(L41==L43))
+  name: Duplicada3
+  label: Misma pregunta
+  description:  Las respuestas a ambas preguntas tiene que coincidir pues son la misma
+-
+  expr: (is.na(G23) | is.na(L42_1) | is.na(L42_2)| is.na(L42_3)| is.na(L42_4)| is.na(L42_5)| is.na(L42_6)| is.na(L42_7))  | ((G23==1)&(L42_1!=1)&(L42_2!=1)&(L42_3!=1)&(L42_4!=1)&(L42_5!=1)&(L42_6!=1)&(L42_7!=1)) | (G23!=1)
+  name: Dependiente2
+  label: Dificultades tareas cotidianas
+  description: Si tiene dificultades graves, alguna de las actividades de la vida cotitdiana no las puede realizar
+-
+  expr: (is.na(N48)|is.na(N49)) | ((N48==4)&(N49==0)) | (N48!=4)
+  name: VisitaMedico
+  label: Coherencia preguntas visita médico
+  description: Si nunca ha visitado al medico entonces el numero de visitas es 0
+-
+  expr: (is.na(N50)|is.na(N51)) | ((N50==4)&(N51==0)) | (N50!=4)
+  name: VisitaMedico2
+  label: Coherencia preguntas visita médico
+  description: Si nunca ha visitado al medico especialista entonces el numero de visitas es 0
+-
+  expr: (is.na(N50)|is.na(N51)) | ((N50!=4)&(N51!=0)) | (N50==4)
+  name: VisitaMedico3
+  label: Coherencia preguntas visita médico
+  description: Si ha visitado al medico especialista entonces el numero de visitas no puede ser 0
+-
+  expr: is.na(N55_1) | (N55_1<=72)
+  name: LimiteTemp1
+  label: Coherencia tiempo
+  description: Si ha visitado al medico especialista entonces el numero de visitas no puede ser 0
+-
+  expr: is.na(N55_2) | (N55_2<=30)
+  name: LimiteTemp2
+  label: Coherencia tiempo
+  description: Si ha visitado al medico especialista entonces el numero de visitas no puede ser 0
+-
+  expr: is.na(N55_3) | (N55_3<=23)
+  name: LimiteTemp3
+  label: Coherencia tiempo
+  description: Si ha visitado al medico especialista entonces el numero de visitas no puede ser 0
+-
+  expr: is.na(N56_1) | (N56_1<=72)
+  name: LimiteTemp4
+  label: Coherencia tiempo
+  description: Si ha visitado al medico especialista entonces el numero de visitas no puede ser 0
+-
+  expr: is.na(N56_2) | (N56_2<=30)
+  name: LimiteTemp5
+  label: Coherencia tiempo
+  description: Si ha visitado al medico especialista entonces el numero de visitas no puede ser 0
+-
+  expr: is.na(N56_7) | (N56_3<=23)
+  name: LimiteTemp6
+  label: Coherencia tiempo
+  description: Si ha visitado al medico especialista entonces el numero de visitas no puede ser 0
+-
+  expr: (is.na(N53)|is.na(N57)) | ((N53=='01' | N53=='02') & N57==1) | (N53 != '01' & N53 != '02')
+  name: Privacidad1
+  label: Coherencia tipo de sanidad
+  description:  Si la consulta ha sido en ambulatorio o consultorio la sanidad tiene que ser de tipo publico
+-
+  expr: (is.na(N53)|is.na(N57)) | (((N53=='06' | N53=='07' | N53=='08') & (N57==2|N57==3|N57==4))) | ((N53 != '06') & (N53 != '07') & (N53 != '08'))
+  name: Privacidad2
+  label: Coherencia tipo de sanidad
+  description: Si la consulta ha sido a un medico privado la respuesta al tipo de sanidad ha de ser coherente
+-
+  expr: (is.na(N50)|is.na(N60_1)|is.na(N60_2)|is.na(N60_3)|is.na(N60_4)) | (N50==4 &  (N60_1==2|N60_2==2|N60_3==2|N60_4==2)) | (N50 != 4)
+  name: PruebaMedica1
+  label: Coherencia pruebas medicas especiales
+  description: Si no ha ido al medico no han podido hacerle las pruebas especiales
+-
+  expr: (is.na(N65_8)|is.na(N63_4)) | ((N65_8==1) & (N63_4==1) & (N63_4==2)) | (N65_8!=1)
+  name: Dentista1
+  label: Coherencia extraccion muelas
+  description: Si conserva todos los dientes y muelas naturales no han podido ser extraidas
+-
+  expr: (is.na(N63_3) | is.na(N65_3)) | ((N63_3==1) & (N65_3==1)) | (N63_3!=1)
+  name: Dentista2
+  label: Coherencia empastes
+  description: Si tiene algun empaste o endodoncia tiene que haber sufrido alguna
+-
+  expr: (is.na(N65_6) | is.na(N63_5)) | ((N65_6==1) & (N63_5==1)) | (N65_6!=1) 
+  name: Dentista3
+  label: Fundas o protesis
+  description: Si tiene alguna funda o protesis tiene que haber sufrido alguna
+-
+  expr: (is.na(O66) | is.na(H27)) | ((O66==1)&(H27==1)) | (O66!=1)
+  name: IngresoHospitalario1
+  label: Accidente e ingreso en hospital
+  description: Si en el ultimo año ha ingresado en el hospital por un accidente se requiere coherencia con H27
+-
+  expr: (is.na(O67) | is.na(O66)) | ((O67!=0) & (O66==1)) | (O67==0)
+  name: IngresoHospitalario2
+  label: Coherencia veces ingresado
+  description: Si ha sido ingresado una o mas veces en el hospital tiene que tener coherencia la pregunta O66
+-
+  expr: (is.na(SEXOa) | is.na(O69)) | ((SEXOa==1) & (O69!=1)) | (SEXOa!=1)
+  name: IngresoHospitalario3
+  label: Ingreso por parto hombre
+  description: Si es hombre, no ha podido ser ingresado por parto
+-
+  expr: (is.na(SEXOa) | is.na(O69) | is.na(EDADa)) | ((SEXOa==1) & (O69!=1) & (EDADa>51)) | ((SEXOa!=1) | (EDADa<=51))
+  name: IngresoHospitalario4
+  label: Ingreso por parto mujer postmenopausica
+  description: Si es una mujer mayor a 51 no puede quedarse embarazada
+-
+  expr: (is.na(O69) | is.na(O71)) | ((O69==1) & (O71==4)) | (O69!=1)
+  name: IngresoHospitalario5
+  label: Ingreso por parto 
+  description: Coherencia preguntas parto
+-
+  expr: (is.na(O73) | is.na(O72)) | ((O73!=0) & (O72==1)) | (O730=0)
+  name: IngresoHospitalario6
+  label: Coherencia tiempo de espera
+  description: Si leva en lista de espera mas de un mes entonces ha estado en lista de espera
+-
+  expr: (is.na(O77) | is.na(O76)) | ((O77!=0) & (O76==1)) | (O77==0)
+  name: IngresoHospitalario7
+  label: Coherencia ingreso hospital de dia
+  description:  Si ha sido ingresado en el hospital de dia mas de un dia en el ultimo año O76 debe ser coherente 
+-
+  expr: (is.na(O78) | is.na(H27)) | ((O78==1) & (H27==2)) | (O78!=1)
+  name: IngresoHospitalario8
+  label: Urgencias
+  description: Si en el ultimo año ha ingresado en urgencias se requiere coherencia con H27
+-
+  expr: (is.na(O79) | is.na(O78)) | ((O79!=0) & (O78==1)) | (O79==0)
+  name: IngresoHospitalario9
+  label: Coherencia servicio de urgencias
+  description: Si ha sido ingresado en urgencias de dia mas de un dia en el ultimo año O78 debe ser coherente 
+-
+  expr: O84_1==1|O84_2==1|O84_3==1|O84_4==1|O84_5==1|O84_6==1|O84_7==1|O84_8==1|O84_9==1
+  name: TipoSegSan
+  label: Tipo de Seguro Sanitario
+  description: Debe tener algun tipo de Seguro Sanitario
+-
+  expr: (is.na(O90) | is.na(O91)) | ((Q90==1|Q90==2|Q90==3|Q90==4|Q90==5)& (Q89==1)) | (O90!=1|Q90!=2|Q90!=3|Q90!=4|Q90!=5)
+  name: Tension
+  label: Tension profesional
+  description: Si la tension arterial ha sido en alguna fecha tomada por un profesional, Q89 debe ser coherente
+-
+  expr: (is.na(O92) | is.na(O91)) | ((Q92==1|Q92==2|Q92==3|Q92==4)& (Q91==1)) | (O90!=1|Q90!=2|Q90!=3|Q90!=4)
+  name: Colesterol
+  label: Colesterol profesional
+  description: Si el colesterol en sangre ha sido en alguna fecha tomada por un profesional, Q91 debe ser coherente
+-
+  expr: (is.na(O94) | is.na(O93)) | ((Q94==1|Q94==2|Q94==3|Q94==4)& (Q93==1)) | (O94!=1|Q94!=2|Q94!=3|Q94!=4)
+  name: Azucar
+  label: Azucar profesional
+  description: Si el azucar en ssangre ha sido en alguna fecha tomada por un profesional, Q93 debe ser coherente
+- 
+  expr: (is.na(O95) | is.na(O97)| is.na(O96)) | ((Q95==1)&(Q97==1|Q97==2|Q97==3|Q97==4)&(Q96==1|Q96==2|Q96==3|Q96==4|Q96==5)) | (Q95!=1)
+  name: AnalisisHeces
+  label: Sangre en heces
+  description: Si ha sufrido una prueba de sangre en heces ha de indicar el motivo y hace cuanto tiempo
+-
+  expr: (is.na(Q98) | is.na(Q99)) | ((Q98==1)&(Q99==1|Q99==2|Q99==3|Q99==4)) | (Q98!=1)
+  name: Colonoscopia
+  label: Colonoscopia
+  description: Si ha sufrido una colonoscopia ha de indicar el motivo y hace cuanto tiempo
+-
+  expr: (is.na(Q100) | is.na(Q101)| is.na(Q102)) | ((Q100==1)&(Q101==1|Q101==2|Q101==3|Q101==4)&(Q102==1|Q102==2|Q102==3|Q102==4))|(Q100!=1)
+  name: Mamografia
+  label: Mamografia
+  description: Si ha sufrido una mamografia ha de indicar el motivo y hace cuanto tiempo
+- 
+  expr: (is.na(Q103) | is.na(Q104)| is.na(Q105)) | ((Q103==1)&(Q104==1|Q104==2|Q104==3|Q104==4|Q104==5)&(Q105==1|Q105==2|Q105==3|Q105==4))|(Q103!=1)
+  name: CitologiaV
+  label: Citologia
+  description: Si ha sufrido una citologia ha de indicar el motivo y hace cuanto tiempo
+- 
+  expr: (is.na(SEXOa) | is.na(Q103)) | ((SEXOa==1) & (Q103!=1)) | (SEXOa!=1)
+  name: CitologiaHombres
+  label: Citologia Solo mujeres
+  description: Si es hombre, no ha podido sufrir una citologia vaginal
+- 
+  expr: '!(is.na(S109))'
+  name: Altura
+  label: Altura
+  description: La altura tiene que estar rellena
+- 
+  expr: '!(is.na(S110))'
+  name: Peso
+  label: Peso
+  description: El peso tiene que estar relleno
+- 
+  expr: (is.na(T113)) |  (T113<=7) 
+  name: DiasActividadFisica
+  label: Actividad Fisica tiempo
+  description:  Los dias a la semana de actividad fisica deben ser coherentes
+- 
+  expr: is.na(T114) |  (T114<=23)
+  name: HorasActividadFisica
+  label: Actividad Fisica tiempo
+  description: Las horas al dia de actividad fisica deben ser coherentes
+- 
+  expr: is.na(T114_2) |  (T114_2<=59)
+  name: minutosActividadFisica
+  label: Actividad Fisica tiempo
+  description: Los minutos al dia de actividad fisica deben ser coherentes
+- 
+  expr: is.na(T115) |  (T115<=7)
+  name: DiasActividadFisica2
+  label: Actividad Fisica tiempo
+  description: Los dias a la semana de actividad fisica moderada deben ser coherentes
+- 
+  expr: is.na(T116_1) |  (T116_1<=23)
+  name: HorasActividadFisica2
+  label: Actividad Fisica tiempo
+  description: Las horas al dia de actividad fisica moderada deben ser coherentes
+- 
+  expr: is.na(T116_2) |  (T116_2<=59)
+  name: minutosActividadFisica2
+  label: Actividad Fisica tiempo
+  description: Los minutos al dia de actividad fisica moderada deben ser coherentes
+- 
+  expr: is.na(T117) |  (T117<=7)
+  name: DiasActividadFisica3
+  label: Actividad Fisica tiempo
+  description: Los dias a la semana que camina deben ser coherentes
+- 
+  expr: is.na(T118_1) |  (T118_1<=23)
+  name: HorasActividadFisica3
+  label: Actividad Fisica tiempo
+  description: Las horas al dia que camina deben ser coherentes
+- 
+  expr: is.na(T118_2) |  (T118_2<=59)
+  name: minutosActividadFisica3
+  label: Actividad Fisica tiempo
+  description: Los minutos al dia que camina deben ser coherentes
+- 
+  expr: is.na(T119_1) |  (T119_1<=23)
+  name: HorasActividadFisica4
+  label: Actividad Fisica tiempo
+  description: Las horas al dia sentado moderada deben ser coherentes
+- 
+  expr: is.na(T119_2) |  (T119_2<=59)
+  name: minutosActividadFisica4
+  label: Actividad Fisica tiempo
+  description: Los minutos al dia sentado deben ser coherentes
+- 
+  expr: (is.na(V122)|is.na(V121)) | (V122==1|V122==2|V122==3|V122==4) & (V121!=4) | (V122!=1 & V122!=2 & V122!=3 & V122!=4)
+  name: Fumadores
+  label: Fumadores
+  description: Si nunca ha sido fumador habitual, las respuestas tienen que ser coherentes
+- 
+  expr: (is.na(V123)|is.na(V121)|is.na(V124)|is.na(V125)) | (V121==1) 
+  name: FumadoresDia
+  label: Fumadores a diario
+  description: Si fuma a diario, tiene que contestar las siguiente preguntas
+- 
+  expr: (is.na(V122) | is.na(V124)) | ((V122==1|V122==2|V122==3|V122==4)&(V124>=6 & V124<=90))| (V122!=1|V122!=2|V122!=3|V122!=4)
+  name: edadfumador
+  label: Edad que empezo a fumar
+  description: Si fuma con cierta frecuencia la edad con la que empezó tiene que estar entre 6 y 90
+- 
+  expr: (is.na(W128cer) | is.na(W128cer_1)| is.na(W128cer_2)| is.na(W128cer_3)| is.na(W128cer_4)| is.na(W128cer_5)| is.na(W128cer_6)| is.na(W128cer_7))| (W128cer==1)&((W128cer_1 !=0) | (W128cer_2 !=0)| (W128cer_3 !=0)| (W128cer_4 !=0)| (W128cer_5 !=0)| (W128cer_6 !=0)| (W128cer_7 !=0)) | (W128cer!=1)
+  name: CervezaConsumo
+  label: Consumo semanal y diario de cerveza
+  description: Si consume cerveza en general alguno de los dias tiene que consumir 
+-
+  expr: (is.na(W128vin) | is.na(W128vin_1)| is.na(W128vin_2)| is.na(W128vin_3)| is.na(W128vin_4)| is.na(W128vin_5)| is.na(W128vin_6)| is.na(W128vin_7))| (W128vin==1)&((W128vin_1 !=0) | (W128vin_2 !=0)| (W128vin_3 !=0)| (W128vin_4 !=0)| (W128vin_5 !=0)| (W128vin_6 !=0)| (W128vin_7 !=0)) | (W128vin!=1)
+  name: VinoConsumo
+  label: Consumo semanal y diario de vino
+  description: Si consume vino en general alguno de los dias tiene que consumir 
+-
+  expr: (is.na(W128vermut) | is.na(W128vermut_1)| is.na(W128vermut_2)| is.na(W128vermut_3)| is.na(W128vermut_4)| is.na(W128vermut_5)| is.na(W128vermut_6)| is.na(W128vermut_7))| (W128vermut==1)&((W128vermut_1 !=0) | (W128vermut_2 !=0)| (W128vermut_3 !=0)| (W128vermut_4 !=0)| (W128vermut_5 !=0)| (W128vermut_6 !=0)| (W128vermut_7 !=0)) | (W128vermut!=1)
+  name: VermutConsumo
+  label: Consumo semanal y diario de vermut
+  description: Si consume vermut en general alguno de los dias tiene que consumir 
+-
+  expr: (is.na(W128lic) | is.na(W128lic_1)| is.na(W128lic_2)| is.na(W128lic_3)| is.na(W128lic_4)| is.na(W128lic_5)| is.na(W128lic_6)| is.na(W128lic_7))| (W128lic==1)&((W128lic_1 !=0) | (W128lic_2 !=0)| (W128lic_3 !=0)| (W128lic_4 !=0)| (W128lic_5 !=0)| (W128lic_6 !=0)| (W128lic_7 !=0)) | (W128lic!=1)
+  label: Consumo semanal y diario de licores
+  description: Si consume licores en general alguno de los dias tiene que consumir 
+-
+  expr: (is.na(W128comb) | is.na(W128comb_1)| is.na(W128comb_2)| is.na(W128comb_3)| is.na(W128comb_4)| is.na(W128comb_5)| is.na(W128comb_6)| is.na(W128ccomb_7))| (W128comb==1)&((W128comb_1 !=0) | (W128comb_2 !=0)| (W128comb_3 !=0)| (W128comb_4 !=0)| (W128comb_5 !=0)| (W128comb_6 !=0)| (W128comb_7 !=0)) | (W128comb!=1)
+  name: CombinadosConsumo
+  label: Consumo semanal y diario de combinados
+  description: Si consume combinados en general alguno de los dias tiene que consumir 
+-
+  expr: (is.na(W128sidra) | is.na(W128sidra_1)| is.na(W128sidra_2)| is.na(W128sidra_3)| is.na(W128sidra_4)| is.na(W128cer_5)| is.na(W128sidra_6)| is.na(W128sidra_7))| (W128sidra==1)&((W128sidra_1 !=0) | (W128sidra_2 !=0)| (W128sidra_3 !=0)| (W128sidra_4 !=0)| (W128sidra_5 !=0)| (W128cer_6 !=0)| (W128sidra_7 !=0)) | (W128sidra!=1)
+  name: SidrasConsumo
+  label: Consumo semanal y diario de Sidra
+  description: Si consume sidra en general alguno de los dias tiene que consumir 

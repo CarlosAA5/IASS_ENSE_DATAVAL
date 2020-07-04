@@ -1,0 +1,141 @@
+rules:
+-
+  expr: (exists_one(A7_1_i=='1',IDENTHOGAR))
+  name: PersRef2
+  label: Existe persona referencia
+  description: Existe una sola persona de referencia por hogar
+-
+  expr: (NADULTOS<15)&(NMENORES<15)&(!is.na(NADULTOS))&(!is.na(NMENORES))
+  name: LimNumPer
+  label: Limite del numero adultos y del numero de menores por hogar
+  description: Solo puede haber un máximo de 15 adultos y 15 menores por hogar
+-
+  expr: (!is.na(A7_1_i)&((A7_1_i=='2'))) | ((A7_1_i=='1')&(EDAD_i>18))
+  name: PersRef
+  label: Personas de referencia por hogar mayor de edad
+  description: Si es persona de referencia en el hogar ha de ser mayor de
+- 
+  expr: '!is.na(A8_2_i)'
+  name: Req1
+  label: Requerimiento del parentesco
+  description: El parentesco con el adulto seleccionado debe estar informado
+- 
+  expr: (A8_2_i=='02'& EDAD_i>16)|(A8_2_i=='04' & EDAD_i>16)|(A8_2_i!='02' & A8_2_i!='04')|(is.na(A8_2_i))
+  name: CoheEdad
+  label: Mayor a 16 años si es pareja
+  description: Si se considera pareja oficial de alguien tiene que ser mayor de 16 años.
+-
+  expr: (exists_one(A8_1_i=='1',IDENTHOGAR))
+  name: AdultSelec
+  label: Existe adulto seleccionado
+  description: Existe un solo adulto seleccionado por hogar
+- 
+  expr: (A8_2_i=='09'& EDAD_i>16)|(A8_2_i!='09')|is.na(A8_2_i)
+  name: CoheEdad2
+  label: Empleados en el hogar mayor de edad
+  description: Si en el hogar trabaja alguna persona encargada del hogar debe estar en edad de trabajar
+- 
+  expr: (!is.na(A9_otra)&(EDAD_i>18))|is.na(A9_otra)
+  name: CoheEdad3
+  label: Otro tipo de informante
+  description: Si el tipo de informante no es ninguno de la pregunya A8_2 entonces este campo estará informado y la edad tiene que ser mayor a 18
+- 
+  expr: ((EDAD_i<=10)&(A10_i=='01'))|(EDAD_i>10)
+  name: CoheEdad4
+  label: Niño pequeño no estudios
+  description: Si la persona es un niño no puede tener estudios
+- 
+  expr: ((EDAD_i<=19)&(A10_i!='09'))|(EDAD_i>19)
+  name: CoheEdad5
+  label: Menos de 19 años no estudios universitarios
+  description: Si la persona tiene menos de 19 años, no puede haber finalizado estudios universitarios
+- 
+  expr: '!is.na(A12)'
+  name: Req2
+  label: Requerimiento de la unidad familiar
+  description: El tipo de unidad del hogar debe estar informado
+- 
+  expr: ((A12==2)&(NMENORES==0))|((A12==1)&(NMENORES==0))|((A12!=1 & A12!=2))
+  name: HogarSinMenor
+  label: Hogares sin menores
+  description: Si el hogar es de una persona o de una pareja, no puede haber menores
+- 
+  expr: (B18==1)&(EDAD_i>=16)|(B18!=1)|(is.na(B18))
+  name: TrabajoMenor
+  label: Menores no trabajan
+  description: Si la persona es menor de edad no puede haber trabajado
+- 
+  expr: (A12==1)&(A7_1_i==1)&(NADULTOS==1)|(A12!=1)|(is.na(A12))
+  name: HogUni1
+  label: Hogar Unipersonal
+  description: Si el hogar es unipersonal solo puede haber un adulto y tiene que ser la persona de referencia
+- 
+  expr: (A12==1)&(NORDEN_Ai==1)|(A12!=1)|(is.na(A12))
+  name: HogUni2
+  label: Orden Hogar Unipersonal
+  description: Si el hogar es unipersonal el orden del adulto es 1   
+- 
+  expr: ((A12==2)&(NORDEN_Ai==1))|((A12==2)&(NORDEN_Ai==2))|(A12!=2)
+  name: HogBiper
+  label: Orden Hogar Bipersonal
+  description: Si el hogar es bipersonal el orden del adulto es 1 o 2  
+- 
+  expr: ((B14==2)&(B15_2==0))|((B14==2)&(is.na(B15_2)))|(B14!=2)|(is.na(B14))|(is.na(B15_2))
+  name: NoTrab
+  label: Nunca trabajo
+  description: Si nunca ha trabajado no puede seleccionar actividad que desempeñó en su ultimo trabajo
+- 
+  expr: ((B14==2)&(B19a_2==0))|((B14==2)&(is.na(B19a_2)))|(B14!=2)|(is.na(B14))|(is.na(B19a_2))
+  name: NoTrab2
+  label: No trabaja
+  description:  Si nunca ha trabajado no puede seleccionar actividad que desempeña actualmente
+- 
+  expr: ((B14==2)&(B19b_2==0))|((B14==2)&(is.na(B19b_2)))|(B14!=2)|(is.na(B14))|(is.na(B19b_2))
+  name: NoTrab3
+  label: No trabaja
+  description:  Si nunca ha trabajado no puede seleccionar actividad que desempeña actualmente
+- 
+  expr: ((!is.na(B19a_2))&(!is.na(B20a_2))&(!is.na(B21a)))| ((is.na(B19a_2))&(is.na(B20a_2))&(is.na(B21a)))
+  name: CoherPreg1
+  label: Coherencia entre preguntas
+  description: Si trabaja actualmente, todas las preguntas sobre trabajo actual han de estar contestadas.
+- 
+  expr: ((!is.na(B19b_2))&(!is.na(B20b_2))&(!is.na(B21b)))| ((is.na(B19b_2))&(is.na(B20b_2))&(is.na(B21b)))
+  name: CoherPreg2
+  label: Coherencia entre preguntas
+  description: Si no trabaja actualmente, todas las preguntas sobre trabajo anterior han de estar contestadas.
+- 
+  expr: ((D27==1)&(D26_1==1))|((D27==2)&(D26_2==1))|((D27==3)&(D26_3==1))|((D27==4)&(D26_4==1))|((D27==5)&(D26_5==1))|((D27==6)&(D26_6==1))|((D27==7)&(D26_7==1))|((D27==8)&(D26_8==1))|((D27==8)&(D26_8==1))|(is.na(D27))
+  name: CoherPreg3
+  label: Coherencia entre preguntas
+  description: Las preguntas sobre tipo de ingreso tienen que tener coherencia
+- 
+  expr: ((A11_i=='1')&(EDAD_i > 16)&(EDAD_i <70))|((A11_i=='2')&(EDAD_i > 16)&(EDAD_i <70))|((A11_i=='3')&(EDAD_i > 65))|((A11_i!='1')&(A11_i!='2')&(A11_i!='3'))
+  name: CoheEdad6
+  label: Coherencia edad
+  description: Coherencia entre la situación laboral y la edad
+- 
+  expr: (exists_any(A8_2_i=='03', IDENTHOGAR, na.rm=FALSE))&(exists_any(ref$A8_2_i=='01', ref$IDENTHOGAR, na.rm=FALSE))
+  name: CoheEdad7
+  label: Coherencia edad
+  description: Coherencia entre la situación laboral y la edad
+- 
+  expr: (IDENTHOGAR==ref$IDENTHOGAR)&(exists_any(A8_2_i=='03', IDENTHOGAR, na.rm=FALSE))&(exists_any(ref$A8_2_i=='01', ref$IDENTHOGAR, na.rm=FALSE))&(EDAD_i<ref$EDAD_i)|(IDENTHOGAR==ref$IDENTHOGAR)&(exists_any(A8_2_i!='03', IDENTHOGAR, na.rm=FALSE))
+  name: PadreHijo
+  label: Edad hijo y padre
+  description: El hijo/hijastro debe ser menor que el padre/padrastro.
+- 
+  expr: (IDENTHOGAR==ref$IDENTHOGAR)&(exists_any(A8_2_i=='05', IDENTHOGAR, na.rm=FALSE))&(exists_any(ref$A8_2_i=='01', ref$IDENTHOGAR, na.rm=FALSE))&(EDAD_i<ref$EDAD_i)|(IDENTHOGAR==ref$IDENTHOGAR)&(exists_any(A8_2_i!='05', IDENTHOGAR, na.rm=FALSE))
+  name: AdultoNieto 
+  label: Edad nieto y abuelo
+  description: El nieto debe ser menor que el abuelo.
+- 
+  expr: (IDENTHOGAR==ref$IDENTHOGAR)&(exists_any(A8_2_i=='06', IDENTHOGAR, na.rm=FALSE))&(exists_any(ref$A8_2_i=='01', ref$IDENTHOGAR, na.rm=FALSE))&(EDAD_i>ref$EDAD_i)|(IDENTHOGAR==ref$IDENTHOGAR)&(exists_any(A8_2_i!='06', IDENTHOGAR, na.rm=FALSE))
+  name: PadreHijo2
+  label: Edad adulto y padre o suegro
+  description: El padre o suegro debe ser mayor que el adulto seleccionado.
+- 
+  expr: (!is.na(D27))&(D29 %in% c('01','02','03','04','05','06','07','08','09','10','11','12'))|(is.na(D29))
+  name: Ingresos
+  label: tipo de ingresos y cuantia
+  description: Si indica la cuantia de sus ingresos mensuales netos debe indicar que tipo de ingresos son.

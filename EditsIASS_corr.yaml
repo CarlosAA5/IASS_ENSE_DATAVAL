@@ -1,0 +1,131 @@
+rules:
+- 
+  expr: "!is.na(b1)"
+  name: Req3
+  label: Debe introducir un valor para el importe de la cifra de negocios
+  description: (Control duro) La cifra de negocios no puede estar vacia.
+- 
+  expr: "!is.na(c11)"
+  name: Req4
+  label: Debe introducir un valor para el personal no remunerado
+  description: (Control duro) El personal no remunerado no puede estar vacio.
+- 
+  expr: "!is.na(c121)"
+  name: Req5
+  label: Debe introducir un valor para el personal remunerado fijo
+  description: (Control duro) El personal remunerado fijo no puede estar vacio.
+- 
+  expr: "!is.na(c122)"
+  name: Req6
+  label: Debe introducir un valor para el personal remunerado eventual
+  description: (Control duro) El personal remunerado eventual no puede estar vacio.
+- 
+  expr: if (exist == 1) {!is.na(existencias)}
+  name: Req7
+  label: Debe introducir un valor para las existencias de mercaderias
+  description: (Control duro) Las existencias no pueden estar vacia para aquellas unidades obligadas a cumplimentar esta variable.
+-
+  expr: b1 >= 0
+  name: Rango5
+  label: El valor del importe de la cifra de negocios no puede ser menor que 0. Por favor, introduzca un valor correcto. Consigne 0 si sus ingresos son negativos.
+  description: (Control duro) La cifra de negocios no puede ser negativa. Será 0 si los ingresos son negativos.
+-
+  expr: c11 >= 0
+  name: Rango6
+  label: El valor del personal no remunerado no puede ser menor que 0. Por favor introduzca un valor correcto.
+  description: (Control duro) El personal no remunerado no puede ser negativo.
+-    
+  expr: c121 >= 0
+  name: Rango7
+  label: El valor del personal remunerado fijo no puede ser menor que 0. Por favor introduzca un valor correcto.
+  description: (Control duro) El personal remunerado fijo no puede ser negativo.
+-    
+  expr: c122 >= 0
+  name: Rango8
+  label: El valor del personal remunerado eventual no puede ser menor que 0. Por favor introduzca un valor correcto.
+  description: (Control duro) El personal remunerado eventual no puede ser negativo.
+-    
+  expr: if (exist == 1) existencias >= 1
+  name: Rango14
+  label: Existencias Positivas
+  description: (Control duro) Las existencias deben ser positivas para aquellas unidades obligadas a cumplimentar esta variable.
+-   
+  expr: if (!is.na(b1)) b1 > 0
+  name: Nulo1
+  label: El importe de la cifra de negocios es 0. Si es correcto, por favor justifiquelo brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otro valor.
+  description: Explicacion de por que el importe de la cifra de negocios es nula.
+-    
+  expr: if(!is.na( c11 + c121 + c122 )) c11 + c121 + c122 > 0
+  name: Nulo2
+  label: El personal remunerado y no remunerado son 0. Si los valores son correctos, por favor justifiquelo brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otros valores. 
+  description: Explicacion de por que el total de personal es nulo.
+-     
+  expr: if(!is.na(ref$b1_anterior) & !is.na(b1))  abs(b1 - ref$b1_anterior) > 0.01
+  name: CNAnt
+  label: El importe de la cifra de negocios es exactamente igual al informado en el mes de referencia anterior. Por favor, compruebe que el importe introducido es correcto.
+  description: (Control blando) La cifra de negocios no puede coincidir con la del período anterior.
+-     
+  expr: if (cond_factor ==  TRUE) {abs( (c11 + c121 + c122) - (hist_c11 + hist_c121 + hist_c122) ) <= 1} 
+  name: Emp_W_1
+  label: Si el peso de muestreo es muy alto, la suma de personal remunerado y no remunerado ha variado respecto al período anterior. Si es correcto, por favor justifiquelo en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otro valor.
+  description: (Control blando) El personal total no puede diferir en mas de un empleado respecto al periodo anterior para unidades con pesos de muestreo altos.
+-    
+  expr: if (hist_c11 == 0) {c11 == 0}
+  name: EmpNoRem_W_1
+  label: El personal no remunerado presenta un valor no nulo inusual. Si el valor es correcto justif?quelo brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otro valor.
+  description: (Control blando) El personal no remunerado debe ser nulo si su valor histórico lo es.
+-    
+  expr: if (hist_c121 == 0) {c121 == 0}
+  name: EmpRemFij_W_1
+  label: El personal remunerado fijo presenta un valor no nulo inusual. Si el valor es correcto justif?quelo brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otro valor.
+  description: (Control blando) El personal remunerado fijo debe ser nulo si su valor histórico lo es.  
+-    
+  expr: if (hist_c122 == 0) {c122 == 0}
+  name: EmpRemEve_W_1
+  label: El personal remunerado eventual presenta un valor no nulo inusual. Si el valor es correcto justif?quelo brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otro valor.
+  description: (Control blando) El personal remunerado eventual debe ser nulo si su valor histórico lo es. 
+-
+  expr: log(1 + b1) >= ref$LimInf_LCN_W_1 & log(1 + b1) <= ref$LimSup_LCN_W_1
+  name: lCN_W_1
+  label: El importe de la cifra de negocios tiene un valor inusual. Si el valor es correcto, por favor justifiquelo brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otro valor.
+  description: (Control blando) La cifra de negocios debe estar contenida en el intervalo de validación (canal W1).
+-
+  expr: log(1 + b1) >= ref$LimInf_LCN_W_3 & log(1 + b1) <= ref$LimSup_LCN_W_3
+  name: lCN_W_3
+  label: El importe de la cifra de negocios tiene un valor inusual. Si el valor es correcto, por favor justifiquelo brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otro valor.
+  description: (Control blando) La cifra de negocios debe estar contenida en el intervalo de validación (canal W1).
+-
+  expr: log(1 + b1) >= ref$LimInf_LCN_noW_1 & log(1 + b1) <= ref$LimSup_LCN_noW_1
+  name: lCN_noW_1
+  label: El importe de la cifra de negocios tiene un valor inusual. Si el valor es correcto, por favor justifiquelo brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otro valor.
+  description: (Control blando) La cifra de negocios debe estar contenida en el intervalo de validación (canal W1).
+-    
+  expr: log(1 + (b1 / (c11 + c121 + c122)) ) >= ref$LimInf_LRCNPR_W_1 & log(1 + (b1 / (c11 + c121 + c122)) )  <= ref$LimSup_LRCNPR_W_1
+  name: lrCNPR_W_1
+  label: El importe de la cifra de negocios tiene un valor inusual en relacion con la suma del personal remunerado y no remunerado. Si los valores son correctos, por favor justifiquelos brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otros valores. 
+  description: (Control blando) La productividad (ratio cifra negocios/personal total) debe estar contenida en el intervalo de validación (canal W1).  
+-
+  expr: log(1 + (b1 / (c11 + c121 + c122)) ) >= ref$LimInf_LRCNPR_W_3 & log(1 + (b1 / (c11 + c121 + c122)) )  <= ref$LimSup_LRCNPR_W_3
+  name: lrCNPR_W_3
+  label: El importe de la cifra de negocios tiene un valor inusual en relacion con la suma del personal remunerado y no remunerado. Si los valores son correctos, por favor justifiquelos brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otros valores. 
+  description: (Control blando) La productividad (ratio cifra negocios/personal total) debe estar contenida en el intervalo de validación (canal W3).   
+-
+  expr: log(1 + (b1 / (c11 + c121 + c122)) ) >= ref$LimInf_LRCNPR_noW_1 & log(1 + (b1 / (c11 + c121 + c122)) )  <= ref$LimSup_LRCNPR_noW_1
+  name: lrCNPR_noW_3
+  label: El importe de la cifra de negocios tiene un valor inusual en relacion con la suma del personal remunerado y no remunerado. Si los valores son correctos, por favor justifiquelos brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otros valores. 
+  description: (Control blando) La productividad (ratio cifra negocios/personal total) debe estar contenida en el intervalo de validación (canal noW3).  
+-  
+  expr: if (exist == 1) {log(1 + existencias) >= ref$LimInf_LEX_W_1 & log(1 + existencias) <= ref$LimSup_LEX_W_1}
+  name: lEX_W_1
+  label: El importe de las existencias tiene un valor inusual. Si los valores son correctos, por favor justifiquelos brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otros valores. 
+  description: (Control blando) Las existencias deben estar contenidas en el intervalo de validación (canal W1). 
+-  
+  expr: if (exist == 1) {log(1 + existencias) >= ref$LimInf_LEX_W_3 & log(1 + existencias) <= ref$LimSup_LEX_W_3}
+  name: lEX_W_3
+  label: El importe de las existencias tiene un valor inusual. Si los valores son correctos, por favor justifiquelos brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otros valores. 
+  description: (Control blando) Las existencias deben estar contenidas en el intervalo de validación (canal W3). 
+-  
+  expr: if (exist == 1)  {log(1 + existencias) >= ref$LimInf_LEX_noW_1 & log(1 + existencias) <= ref$LimSup_LEX_noW_1}
+  name: lEX_noW_3
+  label: El importe de las existencias tiene un valor inusual. Si los valores son correctos, por favor justifiquelos brevemente en el campo Observaciones de esta misma pantalla. En caso contrario, introduzca otros valores. 
+  description: (Control blando) Las existencias deben estar contenidas en el intervalo de validación (canal noW3).
